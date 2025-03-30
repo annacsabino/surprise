@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem Especial</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        
+        #botao {
+            padding: 30px 60px;
+            font-size: 28px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        #botao:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+            background-color: #ff0055;
+        }
+        
+        .mensagem {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            font-weight: bold;
+            color: transparent;
+            display: none;
+            text-align: center;
+            z-index: 100;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(45deg, #ff0000, #ff7700, #ffff00, #00ff00, #0000ff, #8a2be2, #ff00ff);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            animation: gradientFlow 6s ease infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes pulsar {
+            0% { transform: translate(-50%, -50%) scale(0.8); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(0.8); }
+        }
+        
+        .fogo-artificio {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: explodir 1.5s ease-out forwards;
+        }
+        
+        @keyframes explodir {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--end-x), var(--end-y)) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="botao">CLIQUE AQUI</button>
+    <div id="mensagem" class="mensagem">EU TE AMO</div>
+    
+    <script>
+        document.getElementById('botao').addEventListener('click', function() {
+            this.style.display = 'none';
+            
+            // Exibir mensagem
+            const mensagem = document.getElementById('mensagem');
+            mensagem.style.display = 'block';
+            
+            // Animar mensagem
+            mensagem.style.animation = 'gradientFlow 6s ease infinite, pulsar 1.5s infinite';
+            
+            // Criar fogos de artifício
+            criarFogosDeArtificio();
+            
+            // Som de fogos
+            const audio = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAeAAAjkAAVFRUgICAgKysrKzY2Njc3Nzc3QkJCQk1NTU1YWFhYY2NjY2Nubm5ueXl5eYSEhISPj4+Pj5qampqlpaWlsLCwsLu7u7vGxsbG0dHR0dzc3Nzc5+fn5/Ly8vL9/f39//8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAI5CgNBjBAAAAAAAD//tQxAADUxIK7m0CgAI9QllfQyAAmrAhACDQAbCiDHHjRUAwgrCnkDwIxgLhGNP9/OFADDGj/OMP/8vxgyAhA3//E/+WhEP/l//+oCDgIDAGD+XycYPgQdBAGIeAMLwtA4EH8vk4XBcFw0FAQBTZtmzh//tQxAuAAAANIAAAAANIZZZ1AHfvgIDv2UCpAqwKdxYrY3M0zMWzEO09oKIBEVDBYXCwMFhkNnZhBENSAGDWfh0xGGu0T4G3MrhA8Izt8xjvI/LdJ2ZIBAiJAIIYSsE02J+9L1JJG0sPyLm///tQxAf/wAAGkAAAAIAAANIAAAAQr94Q0LDgQOFD4BUjDtmYRkIzTJbZWfGPFxVXcNy4+yKkq1qVVTXGW1bv25yhlRpPOF1/K5zcMBKuVpXHmcvDkHhUjEu4pq3j9aP/f8/xeXGN3YfBZWFW//tQxAf/AAAGkAAAAIAAANIAAAASAYMVeF9iVNmxD3i/kpsTq5asMxcbz9anaPzXfJBbsXKdz9lOMHo56OlZ4q4Mw8T+HMlp2npRYkoZ9a7UNY1UyubqPe653Vj+86KzWsqDFamYqLQM//tQxAf/AAAGkAAAAIAAANIAAAAQsQ1XLRXurkTz2d+wY6rT8/vLEfZK5nLnqF4Pl2zmHdOx7wuLjFRapmJDzRcXDEhhplSksyJC8yIJDLJ1JEVTXMsqZAYeJEiSTIl6SZE/tJE/Jf/L//tQxAf/AAAGkAAAAIAAANIAAAASMjj3jJwQ8uY9KTAMnGVIAmQGIAcmEn//8mRf/yX///J5f//5P//8uQeWeUxBTUUzLjk5LjWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//tQxAf/AAAGkAAAAIAAANIAAAASqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+            audio.play();
+        });
+        
+        function criarFogosDeArtificio() {
+            // Criar múltiplos centros de fogos de artifício
+            for (let i = 0; i < 8; i++) {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight * 0.6; // Manter na parte superior
+                setTimeout(() => {
+                    criarExplosao(x, y);
+                }, i * 300); // Espaçar as explosões
+            }
+            
+            // Continuar criando fogos a cada 2 segundos
+            setTimeout(criarFogosDeArtificio, 2000);
+        }
+        
+        function criarExplosao(x, y) {
+            const cores = ['#ff0000', '#ff7700', '#ffff00', '#00ff00', '#0000ff', '#8a2be2', '#ff00ff'];
+            
+            // Criar partículas para cada explosão
+            for (let i = 0; i < 40; i++) {
+                const fogo = document.createElement('div');
+                fogo.className = 'fogo-artificio';
+                document.body.appendChild(fogo);
+                
+                // Posição inicial
+                fogo.style.left = x + 'px';
+                fogo.style.top = y + 'px';
+                
+                // Cor aleatória
+                fogo.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
+                
+                // Direção aleatória
+                const angulo = Math.random() * Math.PI * 2;
+                const distancia = Math.random() * 200 + 50;
+                const endX = Math.cos(angulo) * distancia;
+                const endY = Math.sin(angulo) * distancia;
+                
+                fogo.style.setProperty('--end-x', endX + 'px');
+                fogo.style.setProperty('--end-y', endY + 'px');
+                
+                // Remover após a animação
+                setTimeout(() => {
+                    fogo.remove();
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>
